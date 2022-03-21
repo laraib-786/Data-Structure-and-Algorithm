@@ -1,44 +1,32 @@
 // https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/
 
+
 class Solution {
 public:
-
-    int minMovesToMakePalindrome(string s) {
-       int n = s.length();
-       int i =0,j=n-1;
-        int ans = 0;
-        while(i<j){
-            if(s[i]==s[j]){     // Both Characters are same move 2 pointers
-                i++;
-                j--;
-            }else{
-			// Both characters are not same
-                int found = -1;
-				//find index nearest to j which matches with i index
-                for(int k=j-1;k>i;k--){
-                    if(s[k]==s[i]){
-                        found = k;
-                        break;
-                    }
-                }
-                
-				// found the character which is equal to s[i]
-                if(found>0){
-                    for(int k=found;k<j;k++){
-                        swap(s[k],s[k+1]);
-                        ans++;
-                    }
-                    i++;
-                    j--;
-                }else{
-				/* If not found means that character at ith index would have been odd character.
-				so swap it so it would eventually end at middle of string*/
-                    swap(s[i],s[i+1]);
-                    ans++;
-                }
-                
+    int minInsertions(string a) {
+        string b=a;
+        reverse(b.begin(),b.end());
+        int n=a.size();
+        int tab[n+1][n+1];
+        for(int i=0;i<=n;i++){
+            tab[i][0]=0;
+        }
+        for(int i=0;i<=n;i++){
+            tab[0][i]=0;
+        }
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
+                if(a[i-1]==b[j-1])
+                    tab[i][j]=1+tab[i-1][j-1];
+                else
+                    tab[i][j]=max(tab[i-1][j], tab[i][j-1]);
             }
         }
-        return ans;
+      
+        
+        
+        
+        return n-tab[n][n];
     }
 };
