@@ -1,3 +1,6 @@
+//https://practice.geeksforgeeks.org/problems/minimum-swaps/1/#
+
+
 int minSwaps(vector<int>&nums)
 	{
 	    // Code here
