@@ -1,0 +1,45 @@
+int minSwaps(vector<int>&nums)
+	{
+	    // Code here
+	    int n=nums.size();
+	    
+	   // for(int i=0;i<n;i++){
+	   //     int indx=-1;
+	   //     int min_val=INT_MAX;
+	   //     for(int j=i+1;j<n;j++){
+	   //         if(nums[i]>nums[j] && nums[j]<min_val){
+	   //             min_val=nums[j];
+	   //             indx=j;
+	   //         }
+	   //     }
+	   //     if(indx!=-1){
+	   //         swap(nums[i],nums[indx]);
+	   //         count++;
+	   //     }
+	   // }
+	   
+	   // approach is to select an element if it is not at correct position then find the element 
+	   // that should at this position 
+	    int count=0;
+	    vector<int>temp=nums;
+	    sort(temp.begin(),temp.end());
+	    map<int,int>m;
+	    
+	    for(int i=0;i<n;i++){
+	        m[nums[i]]=i;
+	    }
+	    
+	    for(int i=0;i<n;i++){
+	        if(nums[i]!=temp[i]){
+	            int init=nums[i];// store nums[i] before swap
+	            swap(nums[i],nums[m[temp[i]]]);
+	            
+	            count++;
+	            m[init]=m[temp[i]];
+	            m[temp[i]]=i;
+	            
+	        }
+	    }
+	    return count;
+	    
+	}
